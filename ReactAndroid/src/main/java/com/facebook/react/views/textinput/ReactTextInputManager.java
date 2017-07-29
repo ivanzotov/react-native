@@ -59,6 +59,10 @@ import com.facebook.react.views.text.ReactTextUpdate;
 import com.facebook.react.views.text.ReactTextView;
 import com.facebook.react.views.text.TextInlineImageSpan;
 
+import com.redmadrobot.inputmask.MaskedTextChangedListener;
+import com.redmadrobot.inputmask.PolyMaskTextChangedListener;
+import android.support.annotation.NonNull;
+
 /**
  * Manages instances of TextInput.
  */
@@ -595,6 +599,23 @@ public class ReactTextInputManager extends BaseViewManager<ReactEditText, Layout
     float rgbComponent = color == null ? YogaConstants.UNDEFINED : (float) ((int)color & 0x00FFFFFF);
     float alphaComponent = color == null ? YogaConstants.UNDEFINED : (float) ((int)color >>> 24);
     view.setBorderColor(SPACING_TYPES[index], rgbComponent, alphaComponent);
+  }
+
+  @ReactProp(name = "mask")
+  public void setMask(ReactEditText view, @Nullable String mask) {
+    final MaskedTextChangedListener listener = new MaskedTextChangedListener(
+        mask,
+        true,
+        view,
+        null,
+        new MaskedTextChangedListener.ValueListener() {
+            @Override
+            public void onTextChanged(boolean maskFilled, @NonNull final String extractedValue) {
+            }
+        }
+    );
+
+    view.addTextChangedListener(listener);
   }
 
   @Override

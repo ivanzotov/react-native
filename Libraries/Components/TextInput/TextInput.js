@@ -454,6 +454,7 @@ const TextInput = createReactClass({
      * to events and updating the value prop to keep the controlled state in sync.
      */
     defaultValue: PropTypes.string,
+    mask: PropTypes.string,
     /**
      * When the clear button should appear on the right side of the text view.
      * @platform ios
